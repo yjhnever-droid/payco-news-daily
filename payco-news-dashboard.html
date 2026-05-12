@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAYCO 제휴사업팀 · 데일리 뉴스 스크랩</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f6f8;
+  --card: #ffffff;
+  --text-primary: #1a1d23;
+  --text-secondary: #5f6577;
+  --text-muted: #9da3b4;
+  --border: #e8eaf0;
+  --payco-red: #e42429;
+  --payco-dark: #1a1d23;
+  --cat-bigtech: #2563eb;
+  --cat-adtech: #7c3aed;
+  --cat-offerwall: #059669;
+  --cat-commerce: #ea580c;
+  --cat-affiliate: #0891b2;
+  --cat-ai: #db2777;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 20px rgba(0,0,0,.06);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,.1);
+  --radius: 14px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans KR', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Header ── */
+.header {
+  background: linear-gradient(135deg, #1a1d23 0%, #2d3142 50%, #1a1d23 100%);
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 3px solid var(--payco-red);
+}
+
+.header-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 20px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.header-left { display: flex; align-items: center; gap: 16px; }
+
+.logo-mark {
+  width: 42px; height: 42px;
+  background: var(--payco-red);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 16px; color: #fff;
+  letter-spacing: -1px;
+  box-shadow: 0 2px 12px rgba(228,36,41,.35);
+}
+
+.header-text h1 {
+  font-size: 18px; font-weight: 800; color: #fff;
+  letter-spacing: -.3px;
+}
+
+.header-text p {
+  font-size: 11px; color: #8b90a5;
+  font-weight: 500; margin-top: 2px;
+}
+
+.header-right { display: flex; align-items: center; gap: 10px; }
+
+.badge {
+  padding: 5px 14px; border-radius: 20px;
+  font-size: 11px; font-weight: 600;
+}
+
+.badge-live {
+  background: rgba(34,197,94,.15);
+  border: 1px solid rgba(34,197,94,.3);
+  color: #22c55e;
+}
+
+.badge-time {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  color: #8b90a5;
+}
+
+/* ── Container ── */
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 24px 28px 80px;
+}
+
+/* ── Stats Row ── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; gap: 14px;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+
+.stat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+.stat-value { font-size: 22px; font-weight: 800; color: var(--text-primary); }
+
+/* ── AI Briefing ── */
+.ai-section {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #1e1b4b 100%);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-bottom: 24px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-section::before {
+  content: '';
+  position: absolute;
+  top: -40%; right: -10%;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(129,140,248,.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ai-header {
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 12px;
+  margin-bottom: 16px; position: relative; z-index: 1;
+}
+
+.ai-title { font-size: 17px; font-weight: 700; }
+.ai-sub { font-size: 12px; color: #a5b4fc; margin-top: 3px; }
+
+.ai-btn {
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 22px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  font-family: inherit;
+}
+
+.ai-btn:hover { background: #4f46e5; transform: translateY(-1px); }
+.ai-btn:disabled { opacity: .6; cursor: wait; }
+
+.ai-result {
+  background: rgba(255,255,255,.08);
+  border-radius: 12px;
+  padding: 20px;
+  font-size: 14px;
+  line-height: 1.75;
+  color: #e0e7ff;
+  border-left: 3px solid #818cf8;
+  position: relative; z-index: 1;
+  display: none;
+}
+
+.ai-result.show { display: block; }
+
+/* ── Hot Keywords ── */
+.keywords-section {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 14px; font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+
+.keywords-wrap {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+
+.kw-tag {
+  font-size: 12px; font-weight: 600;
+  padding: 5px 14px; border-radius: 20px;
+  cursor: pointer;
+  transition: all .15s;
+  border: none;
+  font-family: inherit;
+}
+
+.kw-tag:hover { transform: scale(1.05); }
+
+.kw-tag.hot {
+  background: linear-gradient(135deg, var(--payco-red), #ff6b6b);
+  color: #fff;
+}
+
+.kw-tag.normal {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+/* ── Filters ── */
+.filters {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  flex: 1 1 220px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 13px;
+  outline: none;
+  background: var(--card);
+  font-family: inherit;
+  transition: border-color .2s;
+}
+
+.search-box:focus { border-color: var(--payco-red); }
+
+.filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.filter-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.filter-btn:hover { border-color: #ccc; }
+.filter-btn.active { background: var(--payco-dark); color: #fff; border-color: var(--payco-dark); }
+
+.result-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+/* ── News Grid ── */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+
+.news-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all .25s;
+  position: relative;
+}
+
+.news-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.news-card.hot-card {
+  border-width: 2px;
+}
+
+.hot-badge {
+  position: absolute; top: 14px; right: 14px;
+  font-size: 10px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px;
+  color: #fff; letter-spacing: .5px; z-index: 2;
+}
+
+.card-body { padding: 20px 22px 18px; }
+
+.card-meta {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 10px;
+}
+
+.cat-badge {
+  font-size: 11px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+}
+
+.imp-badge {
+  font-size: 11px; font-weight: 600;
+}
+
+.card-title {
+  font-size: 15px; font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.45;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-summary {
+  font-size: 13px; color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-tags {
+  display: flex; flex-wrap: wrap; gap: 5px;
+  margin-bottom: 12px;
+}
+
+.card-tag {
+  background: #f3f4f6; color: #4b5563;
+  font-size: 11px; padding: 2px 8px;
+  border-radius: 6px; font-weight: 500;
+}
+
+.card-footer {
+  display: flex; justify-content: space-between;
+  align-items: center;
+  font-size: 11px; color: var(--text-muted);
+}
+
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(5px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-overlay.show { display: flex; }
+
+.modal-content {
+  background: var(--card);
+  border-radius: 20px;
+  max-width: 620px;
+  width: 100%;
+  max-height: 85vh;
+  overflow: auto;
+  padding: 36px;
+  box-shadow: 0 25px 60px rgba(0,0,0,.2);
+  animation: modalIn .3s ease;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-close {
+  background: none; border: none;
+  font-size: 22px; cursor: pointer;
+  color: var(--text-muted);
+  padding: 0;
+}
+
+.modal-title {
+  font-size: 20px; font-weight: 800;
+  line-height: 1.4; margin: 12px 0 16px;
+}
+
+.modal-summary {
+  font-size: 14px; color: #374151;
+  line-height: 1.8; margin-bottom: 20px;
+}
+
+.modal-tags {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 20px;
+}
+
+.modal-footer {
+  display: flex; justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+.modal-link {
+  padding: 8px 20px; border-radius: 10px;
+  color: #fff; text-decoration: none;
+  font-size: 12px; font-weight: 600;
+  transition: opacity .2s;
+}
+
+.modal-link:hover { opacity: .85; }
+
+/* ── Deploy Guide ── */
+.deploy-section {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 28px;
+  margin-top: 32px;
+}
+
+.deploy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.deploy-card {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.deploy-icon { font-size: 22px; margin-bottom: 8px; }
+
+.deploy-title {
+  font-size: 13px; font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.deploy-desc {
+  font-size: 12px; color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.deploy-code {
+  font-family: 'JetBrains Mono', monospace;
+  background: #1a1d23;
+  color: #a5b4fc;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-top: 6px;
+  display: inline-block;
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ── Empty ── */
+.empty-state {
+  text-align: center;
+  padding: 60px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .container { padding: 16px 16px 60px; }
+  .header-inner { padding: 16px; }
+  .news-grid { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .modal-content { padding: 24px; }
+}
+
+/* ── Stagger animations ── */
+.news-card {
+  opacity: 0;
+  animation: fadeUp .5s ease forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="logo-mark">P</div>
+      <div class="header-text">
+        <h1>PAYCO 제휴사업팀 · 데일리 뉴스</h1>
+        <p id="headerDate"></p>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="badge badge-live">● LIVE</span>
+      <span class="badge badge-time">⏰ 매일 오전 7시 갱신</span>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <!-- Stats -->
+  <div class="stats-row" id="statsRow"></div>
+
+  <!-- AI Briefing -->
+  <div class="ai-section">
+    <div class="ai-header">
+      <div>
+        <div class="ai-title">🤖 AI 데일리 브리핑 (Claude API)</div>
+        <div class="ai-sub">전체 뉴스를 분석하여 페이코 제휴사업 관점의 핵심 인사이트를 요약합니다</div>
+      </div>
+      <button class="ai-btn" id="aiBtn" onclick="generateAISummary()">✨ AI 요약 생성</button>
+    </div>
+    <div class="ai-result" id="aiResult"></div>
+  </div>
+
+  <!-- Hot Keywords -->
+  <div class="keywords-section">
+    <div class="section-title">🔑 오늘의 HOT 키워드</div>
+    <div class="keywords-wrap" id="keywordsWrap"></div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <input type="text" class="search-box" id="searchBox" placeholder="🔍 키워드로 검색..." oninput="renderNews()">
+    <div class="filter-group" id="catFilters"></div>
+    <select class="search-box" id="impFilter" onchange="renderNews()" style="flex:0 0 130px">
+      <option value="all">중요도 전체</option>
+      <option value="high">🔴 HIGH</option>
+      <option value="medium">🟡 MID</option>
+      <option value="low">🟢 LOW</option>
+    </select>
+  </div>
+
+  <div class="result-count" id="resultCount"></div>
+
+  <!-- News Grid -->
+  <div class="news-grid" id="newsGrid"></div>
+
+  <!-- Deploy Guide -->
+  <div class="deploy-section">
+    <div class="section-title">🚀 배포 & 자동화 가이드</div>
+    <div class="deploy-grid">
+      <div class="deploy-card">
+        <div class="deploy-icon">📡</div>
+        <div class="deploy-title">1. Google News RSS 수집</div>
+        <div class="deploy-desc">Python feedparser로 6개 카테고리별 키워드 RSS 자동 수집. 중복 제거는 URL 해시로 처리.</div>
+        <div class="deploy-code">pip install feedparser</div>
+      </div>
+      <div class="deploy-card">
+        <div class="deploy-icon">🤖</div>
+        <div class="deploy-title">2. Claude API 요약</div>
+        <div class="deploy-desc">수집된 뉴스를 Claude API에 전달하여 카테고리 분류, 중요도 판정, 요약을 자동 처리.</div>
+        <div class="deploy-code">pip install anthropic</div>
+      </div>
+      <div class="deploy-card">
+        <div class="deploy-icon">📋</div>
+        <div class="deploy-title">3. Google Sheets 저장</div>
+        <div class="deploy-desc">gspread + 서비스 계정으로 스프레드시트에 자동 기록. 날짜별 시트 자동 생성.</div>
+        <div class="deploy-code">pip install gspread oauth2client</div>
+      </div>
+      <div class="deploy-card">
+        <div class="deploy-icon">🌐</div>
+        <div class="deploy-title">4. GitHub Pages 배포</div>
+        <div class="deploy-desc">이 HTML을 GitHub 레포에 push → Settings > Pages 활성화. 팀원 공유 URL 즉시 생성.</div>
+        <div class="deploy-code">git push origin main</div>
+      </div>
+      <div class="deploy-card">
+        <div class="deploy-icon">⏰</div>
+        <div class="deploy-title">5. 매일 오전 7시 자동 실행</div>
+        <div class="deploy-desc">GitHub Actions cron 또는 서버 crontab으로 스크립트 예약 실행 → HTML 자동 갱신.</div>
+        <div class="deploy-code">cron: '0 22 * * *' # UTC=KST-9</div>
+      </div>
+      <div class="deploy-card">
+        <div class="deploy-icon">💬</div>
+        <div class="deploy-title">6. Slack/메일 알림</div>
+        <div class="deploy-desc">수집 완료 후 Slack Webhook 또는 이메일로 팀원에게 요약 브리핑 자동 발송.</div>
+        <div class="deploy-code">slack-sdk / smtplib</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer" id="footer"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <span class="cat-badge" id="modalCat"></span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <h2 class="modal-title" id="modalTitle"></h2>
+    <p class="modal-summary" id="modalSummary"></p>
+    <div class="modal-tags" id="modalTags"></div>
+    <div class="modal-footer">
+      <span style="font-size:12px;color:var(--text-muted)" id="modalMeta"></span>
+      <a class="modal-link" id="modalLink" href="#" target="_blank" rel="noopener">원문 보기 →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Category Config ──
+const CATS = {
+  bigtech:    { label: '빅테크',     icon: '🏢', color: '#2563eb', purpose: '플랫폼 전략' },
+  adtech:     { label: '광고/애드테크', icon: '📊', color: '#7c3aed', purpose: '수익화 동향' },
+  offerwall:  { label: '오퍼월/리워드', icon: '🎯', color: '#059669', purpose: '경쟁사 분석' },
+  commerce:   { label: '커머스·결제', icon: '💳', color: '#ea580c', purpose: '결제/포인트' },
+  affiliate:  { label: '제휴/어필리',  icon: '🤝', color: '#0891b2', purpose: '신규 사업기회' },
+  ai:         { label: 'AI·자동화',  icon: '🧠', color: '#db2777', purpose: '미래 대응' },
+};
+
+const IMP = {
+  high:   { label: '🔴 HIGH', color: '#ef4444' },
+  medium: { label: '🟡 MID',  color: '#f59e0b' },
+  low:    { label: '🟢 LOW',  color: '#22c55e' },
+};
+
+// ── Preloaded News Data (from web search) ──
+const NEWS = [
+  // ─── 빅테크 ───
+  { id:'1', title:'네이버·카카오, 하반기 AI 수익화 본격 돌입 — 광고·커머스 결합', summary:'네이버는 2분기부터 AI 브리핑에 쇼핑·로컬 결합 생성형 AI 광고를 실험하며 3분기 수익화에 나섭니다. 카카오는 카나나 인 카카오톡의 커머스 생태계를 외부로 확장하고, 연말까지 이용자 3,100만 명 확보를 목표로 합니다.', category:'bigtech', importance:'high', source:'ZDNet Korea', url:'https://zdnet.co.kr/view/?no=20260508164810', date:'2026-05-08', keywords:['네이버AI','카카오','카나나','AI수익화'], isHot:true },
+  { id:'2', title:'네이버, 검색·디스플레이 광고 통합 플랫폼 오픈', summary:'2026년 3월부터 네이버는 검색광고와 디스플레이 광고를 하나의 통합 플랫폼에서 운영할 수 있도록 개편했습니다. 채널 간 성과 비교와 전략 조정이 한 화면에서 가능해졌습니다.', category:'bigtech', importance:'high', source:'KT나스미디어', url:'https://blog.nasmedia.co.kr/entry/2603adissue', date:'2026-04-09', keywords:['네이버광고','통합플랫폼','디스플레이','검색광고'], isHot:true },
+  { id:'3', title:'알파벳 1분기 매출 1,099억$ — 구글 클라우드 63% 폭풍 성장', summary:'알파벳은 1분기 매출 1,099억 달러(YoY +22%)를 기록했으며, 구글 클라우드가 200억 달러로 63% 급증했습니다. 연간 CapEx를 최대 1,900억 달러로 확대하며 AI 인프라에 공격적으로 투자합니다.', category:'bigtech', importance:'high', source:'아주경제', url:'https://www.ajunews.com/view/20260430092019092', date:'2026-04-30', keywords:['알파벳','구글클라우드','CapEx','AI투자'], isHot:true },
+  { id:'4', title:'메타, 실적 호조에도 AI 투자 부담에 주가 8% 급락', summary:'메타는 1분기 매출 563억$(+33%), 순이익 268억$(+61%)를 달성했으나, AI CapEx 확대 우려로 투자심리가 냉각됐습니다. 빅테크 간 AI 투자 대비 수익화 능력이 시장 평가의 핵심 잣대가 되고 있습니다.', category:'bigtech', importance:'medium', source:'뉴스핌', url:'https://www.newspim.com/news/view/20260504000008', date:'2026-05-04', keywords:['메타','AI투자','자본지출','수익화'], isHot:false },
+
+  // ─── 광고/애드테크 ───
+  { id:'5', title:'2026 모바일 광고 시장 3,227억$ 돌파 — 검색광고 37% 점유', summary:'글로벌 모바일 광고 시장이 2026년 3,227억 달러 규모에 도달할 전망입니다. 검색광고가 36.95%로 최대 점유율, 디지털 비디오 광고가 최고 성장률을 기록할 것으로 보입니다.', category:'adtech', importance:'high', source:'Fortune Business Insights', url:'https://www.fortunebusinessinsights.com/ko/mobile-advertising-market-102496', date:'2026-05-12', keywords:['모바일광고','검색광고','디지털비디오','시장전망'], isHot:true },
+  { id:'6', title:'당근, AI 타겟 최적화 기능 도입 — 노출 63%↑ CTR 24%↑', summary:'당근이 AI 활용 데이터 분석 기반의 AI 타겟 최적화 기능을 추가했습니다. 전환수 최대화 입찰 기능도 함께 도입되어 광고 효율이 크게 개선되었습니다.', category:'adtech', importance:'medium', source:'KT나스미디어', url:'https://blog.nasmedia.co.kr/entry/2603adissue', date:'2026-04-09', keywords:['당근광고','AI타겟팅','CTR','전환최적화'], isHot:false },
+  { id:'7', title:'앱러빈(AppLovin), AI 엔진 AXON 2.0으로 구글·메타 광고 아성에 도전', summary:'앱러빈은 AI 소프트웨어 기반 광고 최적화 엔진 AXON 2.0으로 시가총액 300조 원을 넘보며 구글·메타의 광고 독점 구도를 위협하고 있습니다. 전 세계 16억 명의 앱 이용 데이터를 실시간 분석합니다.', category:'adtech', importance:'high', source:'Gardenee Blog', url:'https://agmazon.com/blog/articles/technology/202512/applovin-deep-dive-review.html', date:'2026-05-10', keywords:['AppLovin','AXON','AI광고','애드테크'], isHot:true },
+  { id:'8', title:'KT나스미디어: 2026 4대 트렌드 — 인앱 전략·AI 에이전트·참여형 스트리밍', summary:'2026년 핵심 키워드는 인앱 전략 & 경험 루프, AI 에이전트 상용화, 참여형 스트리밍 확대, 파트너십 광고의 부상입니다. 앱 내에서 발견-탐색-참여-전환이 순환되는 구조가 강화됩니다.', category:'adtech', importance:'high', source:'KT나스미디어', url:'https://www.nasmedia.co.kr/', date:'2026-05-12', keywords:['인앱전략','AI에이전트','파트너십광고','경험루프'], isHot:true },
+
+  // ─── 오퍼월/리워드 ───
+  { id:'9', title:'2025 오퍼월 리포트: GMV 3,220억 원 — 전년 대비 4배 폭발 성장', summary:'오퍼월을 통한 결제액(GMV)이 2024년 818억 원에서 2025년 3,220억 원으로 4배 성장했습니다. 네이버페이 포인트 뽑기, 쿠키오븐 멀티미션 등 매체 특화 상품이 성장을 견인하고 있습니다.', category:'offerwall', importance:'high', source:'애디슨 오퍼월', url:'https://openads.co.kr/content/contentDetail?contsId=18500', date:'2026-02-20', keywords:['GMV','오퍼월성장','네이버페이','쿠키오븐'], isHot:true },
+  { id:'10', title:'버즈빌 ACTIVE 2026: 에이전틱 Ad 개념 등장 — AI가 광고를 직접 운영', summary:'2026년 광고 시장에서 에이전틱 Ad(Agentic Ad)가 등장했습니다. AI가 타겟 설정, 소재 조합, 예산 배분을 실시간으로 자동 최적화하며, 게임 업종은 리워드 광고를 질적 성과 도구로 전환 중입니다.', category:'offerwall', importance:'high', source:'오픈애즈/버즈빌', url:'https://openads.co.kr/content/contentDetail?contsId=18876', date:'2026-03-10', keywords:['에이전틱Ad','버즈빌','AI최적화','리워드광고'], isHot:true },
+  { id:'11', title:'오퍼월 광고, iOS 추적 허용률 80% — 프라이버시 시대의 대안 채널', summary:'애플·구글의 개인정보 보호 강화 속에서 오퍼월은 추적 허용 동의를 자연스럽게 유도하는 대안 채널로 부상하고 있습니다. iOS 14.5+ 환경에서 오퍼월 경유 추적 허용률이 80%를 넘었습니다.', category:'offerwall', importance:'medium', source:'아이보스', url:'https://www.i-boss.co.kr/ab-6141-59747', date:'2026-05-10', keywords:['iOS추적','프라이버시','리타겟팅대안','오퍼월'], isHot:false },
+  { id:'12', title:'보상형 광고 시장 4,000억 원 돌파 — 금융·뷰티·게임으로 광고주 확대', summary:'보상형 광고 시장이 연 4,000억 원을 돌파했습니다. 게임을 넘어 금융·식음료·뷰티 등으로 광고주가 다양화되고 있으며, 소비력 있는 성인층의 참여가 늘면서 진성 유저 기반으로 전환 중입니다.', category:'offerwall', importance:'medium', source:'블로터', url:'https://www.bloter.net/news/articleView.html?idxno=47091', date:'2026-04-15', keywords:['보상형광고','금융광고','진성유저','시장확대'], isHot:false },
+
+  // ─── 커머스·결제 ───
+  { id:'13', title:'PAYCO 포인트모으기 이벤트포인트 정책 변경 — 유효기간 기준 개편', summary:'PAYCO가 이벤트포인트의 유효기간을 회원 계정의 최종 이용 이력(잔액변경일) 기준으로 변경합니다. 2026년 2월부터 6개월간 사전 안내 후 적용됩니다.', category:'commerce', importance:'high', source:'NHN Cloud / PAYCO', url:'https://www.nhncloud.com/mobile/noticeForApp.nhn?serviceId=toastpay&lang=ko', date:'2026-02-01', keywords:['PAYCO','포인트정책','유효기간','이벤트포인트'], isHot:true },
+  { id:'14', title:'토스페이, 모든 결제에 포인트 적립 — 간편결제 슈퍼앱 경쟁 심화', summary:'토스페이는 어떤 카드·계좌로 결제하든 모든 결제에 토스페이 포인트를 적립하는 정책을 유지하며 간편결제 시장에서 슈퍼앱 지위를 강화하고 있습니다.', category:'commerce', importance:'medium', source:'토스피드', url:'https://toss.im/tossfeed/article/tosspay-2025-02', date:'2026-01-15', keywords:['토스페이','포인트적립','간편결제','슈퍼앱'], isHot:false },
+  { id:'15', title:'아마존: 크리에이터 경제 439억$ — 옴니채널 리테일 미디어 24.4% 초과', summary:'크리에이터 경제 광고 지출이 2026년 439억 달러에 달할 전망이며, 옴니채널 리테일 미디어가 24.4%를 초과합니다. 소비자의 75%가 매주 여러 번 쇼핑을 떠올리는 상시 쇼핑 시대입니다.', category:'commerce', importance:'high', source:'Amazon Advertising', url:'https://advertising.amazon.com/ko-kr/library/news/marketing-trends-2026', date:'2026-04-28', keywords:['크리에이터경제','옴니채널','리테일미디어','상시쇼핑'], isHot:true },
+
+  // ─── 제휴/어필리에이트 ───
+  { id:'16', title:'Moloco SDK, AppLovin MAX·Unity LevelPlay 공식 인증 획득', summary:'몰로코 SDK가 AppLovin MAX와 Unity LevelPlay에서 공식 인증을 획득했습니다. 퍼블리셔와 마케터 간 직접 거래를 가능하게 하여 광고 거래를 간소화하고 수익률을 극대화합니다.', category:'affiliate', importance:'medium', source:'Moloco', url:'https://www.moloco.com/ko', date:'2026-05-05', keywords:['Moloco','SDK인증','AppLovin','Unity'], isHot:false },
+  { id:'17', title:'네이버 쇼핑 AI 에이전트, 재방문자 4배 증가 — 비즈니스 에이전트로 확장', summary:'네이버 쇼핑 AI 에이전트는 출시 초기 대비 재방문자가 4배 이상 증가했습니다. 멤버십 혜택·N배송 등 커머스 자산과 결합해 비즈니스 에이전트로 발전시킬 계획입니다.', category:'affiliate', importance:'high', source:'ZDNet Korea', url:'https://zdnet.co.kr/view/?no=20260508164810', date:'2026-05-08', keywords:['네이버쇼핑','AI에이전트','재방문','커머스제휴'], isHot:true },
+  { id:'18', title:'카카오 브랜드 메시지 출시 — 채널 추가 없이 마케팅 메시지 발송 가능', summary:'카카오가 기존 친구톡을 확장해 브랜드 메시지를 출시했습니다. 카카오톡 채널 미추가 고객에게도 웹사이트 등을 통해 마케팅 동의를 받으면 광고 메시지를 합법적으로 발송할 수 있습니다.', category:'affiliate', importance:'medium', source:'적정마케팅연구소', url:'https://segama.co.kr/blog/25149/', date:'2026-05-10', keywords:['카카오','브랜드메시지','파트너마케팅','친구톡'], isHot:false },
+
+  // ─── AI·마케팅 자동화 ───
+  { id:'19', title:'가트너: 2026년 말 기업 앱 40%에 AI 에이전트 탑재 전망', summary:'2026년은 AI가 도구에서 자율적 플레이어로 진화하는 해입니다. 멀티 에이전트 협업 시대가 열리며, 구글 TPU 아이언우드와 아마존이 엔비디아에 본격 도전장을 내밉니다.', category:'ai', importance:'high', source:'트랜D', url:'https://v.daum.net/v/HHzYCXrNCJ', date:'2026-01-15', keywords:['AI에이전트','멀티에이전트','TPU','가트너'], isHot:true },
+  { id:'20', title:'Z세대 겨냥 2026 광고: AI 개인화 + 숏폼 + 옴니채널이 핵심', summary:'Z세대는 가격보다 가치를 중시하며, 숏폼 콘텐츠와 UGC 연계가 핵심입니다. AI 머신러닝 기반 하이퍼 개인화 타겟팅과 옴니채널 전략이 2026년 광고의 핵심 동력이 됩니다.', category:'ai', importance:'medium', source:'AMPM Global', url:'https://inside.ampm.co.kr/insight/13034', date:'2026-05-12', keywords:['Z세대','AI개인화','숏폼','옴니채널'], isHot:false },
+  { id:'21', title:'Moloco, AI 기반 커머스 미디어 — 쇼핑 경험에 자연스럽게 녹아드는 광고', summary:'몰로코 커머스 미디어는 딥러닝 기반으로 광고를 쇼핑 경험의 일부처럼 연결합니다. 실시간 시그널을 활용한 개인화 광고로, 노출이 반복될수록 퍼포먼스가 지속적으로 개선됩니다.', category:'ai', importance:'medium', source:'Moloco', url:'https://www.moloco.com/ko', date:'2026-05-05', keywords:['Moloco','커머스미디어','딥러닝','개인화광고'], isHot:false },
+];
+
+// ── State ──
+let activeFilter = 'all';
+
+// ── Init ──
+function init() {
+  const today = new Date();
+  const days = ['일','월','화','수','목','금','토'];
+  const dateStr = `${today.getFullYear()}년 ${today.getMonth()+1}월 ${today.getDate()}일 (${days[today.getDay()]})`;
+  document.getElementById('headerDate').textContent = `${dateStr} · 빅테크 · 애드테크 · 오퍼월 · 커머스 · 제휴 · AI`;
+  document.getElementById('footer').textContent = `PAYCO 제휴사업팀 Daily News Dashboard · Powered by Claude API · ${dateStr}`;
+
+  renderStats();
+  renderKeywords();
+  renderCatFilters();
+  renderNews();
+}
+
+function renderStats() {
+  const hot = NEWS.filter(n => n.isHot).length;
+  const cats = Object.keys(CATS).length;
+  const kws = [...new Set(NEWS.flatMap(n => n.keywords))].length;
+  const html = [
+    statHTML('📰','전체 기사', NEWS.length, '#2563eb'),
+    statHTML('🔥','HOT 기사', hot, '#ef4444'),
+    statHTML('📂','카테고리', cats, '#7c3aed'),
+    statHTML('🏷️','키워드', kws, '#059669'),
+  ].join('');
+  document.getElementById('statsRow').innerHTML = html;
+}
+
+function statHTML(icon, label, value, color) {
+  return `<div class="stat-card"><div class="stat-icon" style="background:${color}14">${icon}</div><div><div class="stat-label">${label}</div><div class="stat-value">${value}</div></div></div>`;
+}
+
+function renderKeywords() {
+  const all = NEWS.flatMap(n => n.keywords);
+  const counts = {};
+  all.forEach(k => counts[k] = (counts[k]||0)+1);
+  const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]).slice(0,12);
+  document.getElementById('keywordsWrap').innerHTML = sorted.map(([kw,c],i) =>
+    `<button class="kw-tag ${i<3?'hot':'normal'}" onclick="searchKeyword('${kw}')">#${kw} <span style="opacity:.6;font-size:10px">(${c})</span></button>`
+  ).join('');
+}
+
+function searchKeyword(kw) {
+  document.getElementById('searchBox').value = kw;
+  renderNews();
+}
+
+function renderCatFilters() {
+  let html = `<button class="filter-btn active" data-cat="all" onclick="setFilter('all',this)">전체</button>`;
+  for (const [key, cat] of Object.entries(CATS)) {
+    html += `<button class="filter-btn" data-cat="${key}" onclick="setFilter('${key}',this)">${cat.icon} ${cat.label}</button>`;
+  }
+  document.getElementById('catFilters').innerHTML = html;
+}
+
+function setFilter(cat, el) {
+  activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderNews();
+}
+
+function renderNews() {
+  const query = document.getElementById('searchBox').value.toLowerCase();
+  const impF = document.getElementById('impFilter').value;
+
+  const filtered = NEWS.filter(n => {
+    const catOk = activeFilter === 'all' || n.category === activeFilter;
+    const impOk = impF === 'all' || n.importance === impF;
+    const searchOk = !query || n.title.toLowerCase().includes(query) || n.keywords.some(k => k.toLowerCase().includes(query)) || n.summary.toLowerCase().includes(query);
+    return catOk && impOk && searchOk;
+  });
+
+  document.getElementById('resultCount').textContent = `${filtered.length}건의 기사`;
+
+  if (!filtered.length) {
+    document.getElementById('newsGrid').innerHTML = '<div class="empty-state">검색 결과가 없습니다. 필터를 변경해보세요.</div>';
+    return;
+  }
+
+  document.getElementById('newsGrid').innerHTML = filtered.map((n,i) => {
+    const cat = CATS[n.category];
+    const imp = IMP[n.importance];
+    return `
+    <div class="news-card ${n.isHot?'hot-card':''}" style="animation-delay:${i*0.06}s;${n.isHot?`border-color:${cat.color}44`:''}" onclick="openModal('${n.id}')">
+      ${n.isHot ? `<div class="hot-badge" style="background:linear-gradient(135deg,${cat.color},${cat.color}cc)">🔥 HOT</div>` : ''}
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="cat-badge" style="background:${cat.color}18;color:${cat.color}">${cat.icon} ${cat.label}</span>
+          <span class="imp-badge" style="color:${imp.color}">${imp.label}</span>
+        </div>
+        <h3 class="card-title">${n.title}</h3>
+        <p class="card-summary">${n.summary}</p>
+        <div class="card-tags">${n.keywords.slice(0,4).map(k=>`<span class="card-tag">#${k}</span>`).join('')}</div>
+        <div class="card-footer"><span>${n.source}</span><span>${n.date}</span></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openModal(id) {
+  const n = NEWS.find(x => x.id === id);
+  if (!n) return;
+  const cat = CATS[n.category];
+  document.getElementById('modalCat').innerHTML = `${cat.icon} ${cat.label} · ${cat.purpose}`;
+  document.getElementById('modalCat').style.cssText = `background:${cat.color}18;color:${cat.color};font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px`;
+  document.getElementById('modalTitle').textContent = n.title;
+  document.getElementById('modalSummary').textContent = n.summary;
+  document.getElementById('modalTags').innerHTML = n.keywords.map(k => `<span style="background:${cat.color}12;color:${cat.color};font-size:12px;padding:4px 10px;border-radius:8px;font-weight:600">#${k}</span>`).join('');
+  document.getElementById('modalMeta').textContent = `${n.source} · ${n.date}`;
+  document.getElementById('modalLink').href = n.url;
+  document.getElementById('modalLink').style.background = cat.color;
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── AI Summary via Claude API ──
+async function generateAISummary() {
+  const btn = document.getElementById('aiBtn');
+  const result = document.getElementById('aiResult');
+  btn.disabled = true;
+  btn.textContent = '⏳ 분석 중...';
+
+  const newsText = NEWS.map((n,i) =>
+    `${i+1}. [${CATS[n.category].label}] ${n.title}\n요약: ${n.summary}\n키워드: ${n.keywords.join(', ')}`
+  ).join('\n\n');
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{
+          role: 'user',
+          content: `당신은 PAYCO 제휴사업팀의 전략 분석가입니다. 아래 뉴스를 분석하여 다음을 포함한 4~6문장 브리핑을 작성하세요:\n1) 오늘 가장 주목할 빅테크/광고시장 움직임\n2) 오퍼월·리워드 시장에서 PAYCO가 참고할 포인트\n3) 제휴사업 관점에서의 기회 또는 위험 요소\n\n${newsText}`
+        }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content?.[0]?.text || 'AI 요약을 생성할 수 없습니다.';
+    result.textContent = text;
+    result.classList.add('show');
+  } catch (err) {
+    result.textContent = 'AI 요약 생성 중 오류가 발생했습니다. Anthropic API 키 설정을 확인해주세요.';
+    result.classList.add('show');
+  }
+
+  btn.disabled = false;
+  btn.textContent = '✨ AI 요약 생성';
+}
+
+init();
+</script>
+</body>
+</html>
